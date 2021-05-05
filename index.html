@@ -14,33 +14,48 @@
         padding: 3px 0;
       }
       div > div {
-        color: green;
+        color: red;
         padding: 3px 0;
+      }
+      input {
+        background: linear-gradient(yellow, #3f87);
+        color: black;
+        border: 1px solid black;
+        width: 90%;
+      
       }
     </style>
   </head>
   <body>
-    <h1>Change text on input</h1>
+    <h1>What I'm Craving RIGHT NOW</h1>
     <input id="text-input" />
     <div id="text-wrapper"></div>
     <!-- script -->
     <script>
       const textWrapper = document.getElementById("text-wrapper");
       const textInput = document.getElementById("text-input");
-      const words = "a place,a platter,between,b place,c place".split(",");
+      const words = "AVO ON TOAST,ALPHABET SPAGHETTI,A CRISPY TOFU BUGER,BOWL OF PHO,CHEESE TOASTIE,DOUBLE DOUBLE LONG BLACK,EXTRA FRIES, EGGS IN ALL THEIR FORMS,FRIES,FRIES...AGAIN,GLASS OF GUMMIES--gummy bears,HALOUMI,HEMP COOKIES,INFORMATION STAYING IN MY BRAIN,ICYPOLE--lemonade flavour,JELLYBEANS,JACKFRUIT SOMETHING,JAM ON TOAST,KOMBUCHA,KOALA BEARS--choccy ones of course,LOLLIES,LAVA CAKE--even though I've never tried one in my life,".split(",");
 
       function changeText(e) {
+        const searchWord = e.target.value.toLowerCase().trim();
         const resultWords = words.filter(word =>
-          word.startsWith(e.target.value)
+          word.toLowerCase().startsWith(searchWord)
         );
         // clear exist words
         while (textWrapper.firstChild) {
           textWrapper.removeChild(textWrapper.firstChild);
         }
+        if (searchWord !="") {
         for (var i = 0; i < resultWords.length; i++) {
           const line = document.createElement("div");
           line.innerHTML = resultWords[i];
           textWrapper.appendChild(line);
+        }
+        if (resultWords.length === 0) {
+          const line = document.createElement("div");
+          line.innerHTML = "No results";
+          textWrapper.appendChild(line);
+        }
         }
       }
 
